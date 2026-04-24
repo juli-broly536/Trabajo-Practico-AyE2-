@@ -13,11 +13,19 @@ public class SistemaLogistico {
 
     public void cargarInventarioInicial(String ruta) {
         ArrayList<Paquete<String>> paquetesIniciales = InventarioService.cargarDesdeJson(ruta);
-        inventario.addAll(paquetesIniciales);
+        for (Paquete<String> paquete : paquetesIniciales) {
+            agregarPaqueteManual(paquete);
+        }
     }
 
-    public void agregarPaqueteManual(Paquete<?> paquete) {
+    // O(n), porque valida que el ID sea unico antes de insertar.
+    public boolean agregarPaqueteManual(Paquete<?> paquete) {
+        if (buscarPaquetePorId(paquete.getId()) != null) {
+            return false;
+        }
+
         inventario.add(paquete);
+        return true;
     }
 
     // O(n)

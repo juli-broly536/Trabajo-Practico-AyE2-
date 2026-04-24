@@ -79,9 +79,13 @@ public class Main {
         String contenido = scanner.nextLine();
 
         Paquete<String> paquete = new Paquete<>(id, peso, destino, urgente, contenido);
-        sistema.agregarPaqueteManual(paquete);
+        boolean agregado = sistema.agregarPaqueteManual(paquete);
 
-        System.out.println("Paquete agregado correctamente al inventario.");
+        if (agregado) {
+            System.out.println("Paquete agregado correctamente al inventario.");
+        } else {
+            System.out.println("No se pudo agregar. Ya existe un paquete con ese ID.");
+        }
     }
 
     private static void cargarPaqueteEnCamion(Scanner scanner, SistemaLogistico sistema) {
